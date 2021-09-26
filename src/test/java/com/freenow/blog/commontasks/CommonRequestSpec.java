@@ -7,20 +7,32 @@ import net.thucydides.core.guice.Injectors;
 import net.thucydides.core.util.EnvironmentVariables;
 
 public class CommonRequestSpec {
-  /**
-   * Get Request Specification for blog endpoint
-   *
-   * @return RequestSpecification
-   */
-  public static RequestSpecification blogReqSpec() {
-    EnvironmentVariables environmentVariables = Injectors.getInjector()
-        .getInstance(EnvironmentVariables.class);
+    /**
+     * Get Request Specification for blog endpoint
+     *
+     * @return RequestSpecification
+     */
+    public static RequestSpecification blogReqSpec() {
+        EnvironmentVariables environmentVariables = Injectors.getInjector()
+                .getInstance(EnvironmentVariables.class);
 
-    String baseUrl = EnvironmentSpecificConfiguration.from(environmentVariables)
-        .getProperty("baseurl");
+        String baseUrl = EnvironmentSpecificConfiguration.from(environmentVariables)
+                .getProperty("baseurl");
 
-    return new RequestSpecBuilder().setBaseUri(baseUrl)
-        .setContentType("application/json")
-        .build();
-  }
+        return new RequestSpecBuilder().setBaseUri(baseUrl)
+                .setContentType("application/json")
+                .build();
+    }
+
+    public static RequestSpecification httpSoapReqSpecBuilder() {
+        EnvironmentVariables environmentVariables = Injectors.getInjector()
+                .getInstance(EnvironmentVariables.class);
+
+        String baseUrl = EnvironmentSpecificConfiguration.from(environmentVariables)
+                .getProperty("soapUrl");
+
+        return new RequestSpecBuilder().setBaseUri(baseUrl)
+                .setContentType("text/xml")
+                .build();
+    }
 }
